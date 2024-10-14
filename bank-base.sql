@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 13 2024 г., 09:52
+-- Время создания: Окт 14 2024 г., 22:40
 -- Версия сервера: 5.7.33
 -- Версия PHP: 7.1.33
 
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cheta` (
-  `Id` int(11) NOT NULL COMMENT 'Номер счета',
-  `Id schet` int(11) NOT NULL COMMENT 'id Клиента ',
+  `Id_nomer` int(11) NOT NULL COMMENT 'Номер счета',
+  `Id_schet` int(11) NOT NULL COMMENT 'id Клиента ',
   `Valuta` varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Валюта (рубли, евро)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -37,7 +37,7 @@ CREATE TABLE `cheta` (
 -- Дамп данных таблицы `cheta`
 --
 
-INSERT INTO `cheta` (`Id`, `Id schet`, `Valuta`) VALUES
+INSERT INTO `cheta` (`Id_nomer`, `Id_schet`, `Valuta`) VALUES
 (1, 1, 'rub'),
 (2, 2, 'rub'),
 (3, 3, 'rub'),
@@ -50,26 +50,56 @@ INSERT INTO `cheta` (`Id`, `Id schet`, `Valuta`) VALUES
 (10, 10, 'evro'),
 (11, 11, 'rub'),
 (12, 12, 'rub'),
-(13, 1, 'evro');
+(13, 1, 'evro'),
+(14, 2, 'evro');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `summ prihoda`
+-- Структура таблицы `clients`
 --
 
-CREATE TABLE `summ prihoda` (
-  `Id` int(11) NOT NULL COMMENT 'Id операции',
-  `id  schet` int(11) NOT NULL COMMENT 'Номер счета ',
-  `date and time` datetime NOT NULL COMMENT 'Дата и время',
-  `summa prihoda` int(11) NOT NULL COMMENT 'Сумма зачисления'
+CREATE TABLE `clients` (
+  `Id_name` int(11) NOT NULL COMMENT 'id ФИО',
+  `Name` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'ФИО'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Дамп данных таблицы `summ prihoda`
+-- Дамп данных таблицы `clients`
 --
 
-INSERT INTO `summ prihoda` (`Id`, `id  schet`, `date and time`, `summa prihoda`) VALUES
+INSERT INTO `clients` (`Id_name`, `Name`) VALUES
+(1, 'Иванов Иван Иванович'),
+(2, 'Павлов Павел Павлович'),
+(3, 'Васильев Василий Васильевич'),
+(4, 'Горький Василий Николаевич'),
+(5, 'Добролюбов Алексей Петрович'),
+(6, 'Станиславский Вячеслав Святозарович'),
+(7, 'Сталин Афанасий Иванович'),
+(8, 'Органайзер Михаил Яковлевич'),
+(9, 'Перемычка Денис Валерьевич'),
+(10, 'Коротконожка Светлана Юрьевна'),
+(11, 'Приходько Анастасия Ивановна'),
+(12, 'Приходько Любовь Дмитревна');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `summ_prihoda`
+--
+
+CREATE TABLE `summ_prihoda` (
+  `Id` int(11) NOT NULL COMMENT 'Id операции',
+  `id_nomer_schet` int(11) NOT NULL COMMENT 'Номер счета ',
+  `date_and_time` datetime NOT NULL COMMENT 'Дата и время',
+  `summa_prihoda` int(11) NOT NULL COMMENT 'Сумма зачисления'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `summ_prihoda`
+--
+
+INSERT INTO `summ_prihoda` (`Id`, `id_nomer_schet`, `date_and_time`, `summa_prihoda`) VALUES
 (4, 1, '2024-10-13 09:03:57', 500),
 (5, 1, '2024-10-09 12:04:20', 15000),
 (6, 1, '2024-10-04 16:04:42', 3000),
@@ -113,21 +143,21 @@ INSERT INTO `summ prihoda` (`Id`, `id  schet`, `date and time`, `summa prihoda`)
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `summ rashoda`
+-- Структура таблицы `summ_rashoda`
 --
 
-CREATE TABLE `summ rashoda` (
+CREATE TABLE `summ_rashoda` (
   `Id` int(11) NOT NULL COMMENT 'Номер операции в базе данных',
-  `id schet` int(11) NOT NULL COMMENT 'Id счета, с валютой',
-  `date,and time` datetime NOT NULL COMMENT 'Дата и время',
-  `summa rashoda` int(11) NOT NULL COMMENT 'сумма расхода'
+  `id_nomera_schet` int(11) NOT NULL COMMENT 'Id счета, с валютой',
+  `date_and_time` datetime NOT NULL COMMENT 'Дата и время',
+  `summa_rashoda` int(11) NOT NULL COMMENT 'сумма расхода'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Дамп данных таблицы `summ rashoda`
+-- Дамп данных таблицы `summ_rashoda`
 --
 
-INSERT INTO `summ rashoda` (`Id`, `id schet`, `date,and time`, `summa rashoda`) VALUES
+INSERT INTO `summ_rashoda` (`Id`, `id_nomera_schet`, `date_and_time`, `summa_rashoda`) VALUES
 (1, 1, '2024-10-03 11:16:15', 69),
 (2, 1, '2024-10-04 13:16:37', 10000),
 (3, 1, '2024-10-08 15:16:56', 329),
@@ -168,35 +198,6 @@ INSERT INTO `summ rashoda` (`Id`, `id schet`, `date,and time`, `summa rashoda`) 
 (38, 13, '2024-10-11 14:50:44', 300),
 (39, 13, '2024-10-24 16:50:58', 1000);
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `клиенты`
---
-
-CREATE TABLE `клиенты` (
-  `Id` int(11) NOT NULL COMMENT 'id ФИО',
-  `Name` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'ФИО'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `клиенты`
---
-
-INSERT INTO `клиенты` (`Id`, `Name`) VALUES
-(1, 'Иванов Иван Иванович'),
-(2, 'Павлов Павел Павлович'),
-(3, 'Васильев Василий Васильевич'),
-(4, 'Горький Василий Николаевич'),
-(5, 'Добролюбов Алексей Петрович'),
-(6, 'Станиславский Вячеслав Святозарович'),
-(7, 'Сталин Афанасий Иванович'),
-(8, 'Органайзер Михаил Яковлевич'),
-(9, 'Перемычка Денис Валерьевич'),
-(10, 'Коротконожка Светлана Юрьевна'),
-(11, 'Приходько Анастасия Ивановна'),
-(12, 'Приходько Любовь Дмитревна');
-
 --
 -- Индексы сохранённых таблиц
 --
@@ -205,28 +206,28 @@ INSERT INTO `клиенты` (`Id`, `Name`) VALUES
 -- Индексы таблицы `cheta`
 --
 ALTER TABLE `cheta`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `Id schet` (`Id schet`);
+  ADD PRIMARY KEY (`Id_nomer`),
+  ADD KEY `Id schet` (`Id_schet`);
 
 --
--- Индексы таблицы `summ prihoda`
+-- Индексы таблицы `clients`
 --
-ALTER TABLE `summ prihoda`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `id  klient` (`id  schet`) USING BTREE;
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`Id_name`);
 
 --
--- Индексы таблицы `summ rashoda`
+-- Индексы таблицы `summ_prihoda`
 --
-ALTER TABLE `summ rashoda`
+ALTER TABLE `summ_prihoda`
   ADD PRIMARY KEY (`Id`),
-  ADD KEY `id klienta` (`id schet`) USING BTREE;
+  ADD KEY `id  klient` (`id_nomer_schet`) USING BTREE;
 
 --
--- Индексы таблицы `клиенты`
+-- Индексы таблицы `summ_rashoda`
 --
-ALTER TABLE `клиенты`
-  ADD PRIMARY KEY (`Id`);
+ALTER TABLE `summ_rashoda`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `id klienta` (`id_nomera_schet`) USING BTREE;
 
 --
 -- AUTO_INCREMENT для сохранённых таблиц
@@ -236,25 +237,25 @@ ALTER TABLE `клиенты`
 -- AUTO_INCREMENT для таблицы `cheta`
 --
 ALTER TABLE `cheta`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Номер счета', AUTO_INCREMENT=14;
+  MODIFY `Id_nomer` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Номер счета', AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT для таблицы `summ prihoda`
+-- AUTO_INCREMENT для таблицы `clients`
 --
-ALTER TABLE `summ prihoda`
+ALTER TABLE `clients`
+  MODIFY `Id_name` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id ФИО', AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT для таблицы `summ_prihoda`
+--
+ALTER TABLE `summ_prihoda`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id операции', AUTO_INCREMENT=43;
 
 --
--- AUTO_INCREMENT для таблицы `summ rashoda`
+-- AUTO_INCREMENT для таблицы `summ_rashoda`
 --
-ALTER TABLE `summ rashoda`
+ALTER TABLE `summ_rashoda`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Номер операции в базе данных', AUTO_INCREMENT=40;
-
---
--- AUTO_INCREMENT для таблицы `клиенты`
---
-ALTER TABLE `клиенты`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id ФИО', AUTO_INCREMENT=13;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -264,25 +265,25 @@ ALTER TABLE `клиенты`
 -- Ограничения внешнего ключа таблицы `cheta`
 --
 ALTER TABLE `cheta`
-  ADD CONSTRAINT `cheta_ibfk_1` FOREIGN KEY (`Id schet`) REFERENCES `клиенты` (`Id`);
+  ADD CONSTRAINT `cheta_ibfk_1` FOREIGN KEY (`Id_schet`) REFERENCES `clients` (`Id_name`);
 
 --
--- Ограничения внешнего ключа таблицы `summ prihoda`
+-- Ограничения внешнего ключа таблицы `clients`
 --
-ALTER TABLE `summ prihoda`
-  ADD CONSTRAINT `summ prihoda_ibfk_1` FOREIGN KEY (`id  schet`) REFERENCES `cheta` (`Id`);
+ALTER TABLE `clients`
+  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`Id_name`) REFERENCES `cheta` (`Id_schet`);
 
 --
--- Ограничения внешнего ключа таблицы `summ rashoda`
+-- Ограничения внешнего ключа таблицы `summ_prihoda`
 --
-ALTER TABLE `summ rashoda`
-  ADD CONSTRAINT `summ rashoda_ibfk_1` FOREIGN KEY (`id schet`) REFERENCES `cheta` (`Id`);
+ALTER TABLE `summ_prihoda`
+  ADD CONSTRAINT `summ_prihoda_ibfk_1` FOREIGN KEY (`id_nomer_schet`) REFERENCES `cheta` (`Id_nomer`);
 
 --
--- Ограничения внешнего ключа таблицы `клиенты`
+-- Ограничения внешнего ключа таблицы `summ_rashoda`
 --
-ALTER TABLE `клиенты`
-  ADD CONSTRAINT `клиенты_ibfk_1` FOREIGN KEY (`Id`) REFERENCES `cheta` (`Id schet`);
+ALTER TABLE `summ_rashoda`
+  ADD CONSTRAINT `summ_rashoda_ibfk_1` FOREIGN KEY (`id_nomera_schet`) REFERENCES `cheta` (`Id_nomer`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
